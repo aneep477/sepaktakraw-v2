@@ -3,71 +3,203 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sistem Pentaksiran MPU3421 Sepak Takraw</title>
+  <title>Pentaksiran MPU3421 Sepak Takraw</title>
+
+  <!-- FONTAWESOME ICONS & GOOGLE FONTS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+
   <style>
     :root {
-      --bg-main: #0f172a;
-      --bg-card: #1e293b;
-      --bg-input: #334155;
-      --text-main: #f8fafc;
-      --text-muted: #94a3b8;
+      --bg: #e2e8f0;
+      --clay-bg: #f1f5f9;
+      --text: #1e293b;
+      --text-muted: #64748b;
+      --primary: #3b82f6;
       --accent: #10b981;
-      --border: #475569;
-      --danger: #ef4444;
       --warning: #f59e0b;
+      --danger: #ef4444;
+
+      /* REKA BENTUK SHADOW CLAYMORPHISM 3D LEMBUT */
+      --clay-shadow: 12px 12px 24px #cbd5e1, -12px -12px 24px #ffffff;
+      --clay-inset: inset 3px 3px 6px rgba(255,255,255,0.9), inset -3px -3px 6px rgba(0,0,0,0.06);
+      --clay-input-shadow: inset 4px 4px 8px #cbd5e1, inset -4px -4px 8px #ffffff;
+      --clay-btn-shadow: 6px 6px 12px #cbd5e1, -6px -6px 12px #ffffff;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, sans-serif; }
-    body { background-color: var(--bg-main); color: var(--text-main); padding: 16px; }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
+    body { background-color: var(--bg); color: var(--text); padding: 12px; min-height: 100vh; }
 
-    .container { max-width: 900px; margin: 0 auto; }
-    
-    header { text-align: center; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
-    header h1 { color: var(--accent); font-size: 1.5rem; }
-    header p { color: var(--text-muted); font-size: 0.85rem; }
+    .container { max-width: 850px; margin: 0 auto; }
 
-    .role-bar { background: #1e293b; border: 2px solid var(--accent); border-radius: 8px; padding: 12px; margin-bottom: 16px; text-align: center; }
-    .role-bar label { font-weight: bold; color: var(--accent); margin-right: 10px; font-size: 0.95rem; }
-    .role-bar select { padding: 8px 14px; font-weight: bold; background: #0f172a; color: #fff; border: 1px solid var(--accent); border-radius: 6px; }
+    /* HEADER CLAY */
+    header {
+      background: var(--clay-bg);
+      border-radius: 24px;
+      padding: 18px 20px;
+      text-align: center;
+      margin-bottom: 16px;
+      box-shadow: var(--clay-shadow);
+    }
+    header h1 { font-size: 1.35rem; font-weight: 800; color: #0f172a; margin-bottom: 4px; display: flex; align-items: center; justify-content: center; gap: 8px; }
+    header p { color: var(--text-muted); font-size: 0.82rem; font-weight: 600; }
 
-    nav { display: flex; gap: 8px; justify-content: center; margin-bottom: 16px; flex-wrap: wrap; }
-    nav button { background: var(--bg-card); color: var(--text-main); border: 1px solid var(--border); padding: 8px 14px; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 0.88rem; }
-    nav button.active, nav button:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+    /* ROLE SELECTOR BAR */
+    .role-card {
+      background: #e0e7ff;
+      border-radius: 20px;
+      padding: 12px 16px;
+      margin-bottom: 16px;
+      box-shadow: var(--clay-shadow);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .role-card label { font-size: 0.88rem; font-weight: 700; color: #3730a3; display: flex; align-items: center; gap: 6px; }
+    .role-card select {
+      background: var(--clay-bg);
+      border: none;
+      padding: 8px 14px;
+      border-radius: 14px;
+      font-weight: 800;
+      color: #3730a3;
+      box-shadow: var(--clay-input-shadow);
+      outline: none;
+    }
 
-    .card { background: var(--bg-card); border-radius: 10px; padding: 18px; border: 1px solid var(--border); margin-bottom: 16px; }
+    /* NAVIGATION TABS */
+    nav { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+    nav button {
+      flex: 1;
+      min-width: 140px;
+      padding: 12px;
+      border-radius: 18px;
+      border: none;
+      background: var(--clay-bg);
+      color: var(--text-muted);
+      font-weight: 700;
+      font-size: 0.83rem;
+      cursor: pointer;
+      box-shadow: var(--clay-btn-shadow);
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    nav button.active {
+      background: var(--primary);
+      color: #ffffff;
+      box-shadow: inset 3px 3px 6px rgba(255,255,255,0.4), inset -3px -3px 6px rgba(0,0,0,0.2);
+    }
+
+    /* CARDS */
+    .card {
+      background: var(--clay-bg);
+      border-radius: 24px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: var(--clay-shadow);
+    }
     .hidden { display: none !important; }
 
-    .form-group { margin-bottom: 12px; }
-    label { display: block; margin-bottom: 4px; font-weight: 600; font-size: 0.85rem; color: var(--text-muted); }
-    select, input, textarea { width: 100%; padding: 8px 10px; background: var(--bg-input); border: 1px solid var(--border); border-radius: 6px; color: var(--text-main); font-size: 0.9rem; }
+    .card-title {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #0f172a;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
 
-    .checklist-block { background: #0f172a; border: 1px solid var(--border); border-radius: 6px; padding: 12px; margin-bottom: 12px; }
-    .checklist-block h4 { color: #38bdf8; font-size: 0.9rem; margin-bottom: 8px; }
-    .phase-row { display: flex; flex-direction: column; gap: 4px; margin-bottom: 8px; font-size: 0.82rem; }
+    /* FORMS & INPUTS */
+    .form-group { margin-bottom: 14px; }
+    label { display: block; margin-bottom: 6px; font-weight: 700; font-size: 0.82rem; color: var(--text-muted); }
+    select, input, textarea {
+      width: 100%;
+      padding: 12px 14px;
+      background: var(--clay-bg);
+      border: none;
+      border-radius: 16px;
+      color: var(--text);
+      font-size: 0.9rem;
+      font-weight: 600;
+      box-shadow: var(--clay-input-shadow);
+      outline: none;
+    }
 
-    .justification-box { background: #1e293b; border-left: 3px solid var(--warning); padding: 8px 12px; font-size: 0.8rem; color: #fde68a; margin-top: 6px; border-radius: 4px; }
+    /* CHECKLIST BOXES */
+    .checklist-box {
+      background: #f8fafc;
+      border-radius: 20px;
+      padding: 14px;
+      margin-bottom: 14px;
+      box-shadow: inset 2px 2px 5px #e2e8f0, inset -2px -2px 5px #ffffff;
+    }
+    .checklist-box h4 {
+      font-size: 0.92rem;
+      color: var(--primary);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .phase-item { margin-bottom: 10px; }
+    .phase-item span { display: block; font-size: 0.78rem; font-weight: 700; color: #475569; margin-bottom: 4px; }
 
-    .btn-submit { background: var(--accent); color: #fff; border: none; padding: 12px 20px; font-size: 0.95rem; border-radius: 6px; cursor: pointer; width: 100%; font-weight: bold; margin-top: 12px; }
+    /* AUTOMATIC JUSTIFICATION BOX */
+    .justification-card {
+      background: #fef3c7;
+      border-radius: 18px;
+      padding: 12px 14px;
+      font-size: 0.82rem;
+      color: #78350f;
+      font-weight: 600;
+      margin-top: 10px;
+      box-shadow: inset 2px 2px 4px #fde68a, inset -2px -2px 4px #ffffff;
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+    }
 
-    .alert { padding: 10px 14px; border-radius: 6px; margin-bottom: 14px; font-size: 0.85rem; }
-    .alert-success { background: #064e3b; color: #a7f3d0; border: 1px solid #059669; }
-    .alert-error { background: #7f1d1d; color: #fecaca; border: 1px solid #dc2626; }
+    .btn-submit {
+      width: 100%;
+      padding: 14px;
+      border-radius: 18px;
+      border: none;
+      background: var(--accent);
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 0.95rem;
+      cursor: pointer;
+      box-shadow: 6px 6px 12px #a7f3d0, -6px -6px 12px #ffffff;
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
 
-    .report-sheet { background: #ffffff; color: #000000; padding: 24px; border-radius: 8px; font-family: 'Times New Roman', Times, serif; }
-    .report-header { text-align: center; border-bottom: 2px solid #000; padding-bottom: 10px; margin-bottom: 14px; }
-    .report-header h2 { font-size: 1.1rem; text-transform: uppercase; margin-bottom: 2px; }
-    .report-header h3 { font-size: 0.95rem; font-weight: normal; margin-bottom: 2px; }
+    .alert { padding: 12px; border-radius: 16px; font-weight: 700; font-size: 0.85rem; margin-bottom: 14px; text-align: center; }
+    .alert-success { background: #d1fae5; color: #065f46; }
+    .alert-error { background: #fee2e2; color: #991b1b; }
+
+    /* LAPORAN CETAKAN */
+    .report-sheet { background: #ffffff; color: #000; padding: 25px; border-radius: 12px; font-family: 'Times New Roman', serif; }
+    .report-header { text-align: center; border-bottom: 2px solid #000; padding-bottom: 10px; margin-bottom: 12px; }
+    .logo-img { max-height: 70px; margin-bottom: 6px; }
 
     .report-table { width: 100%; border-collapse: collapse; margin-top: 8px; margin-bottom: 12px; font-size: 0.85rem; }
     .report-table th, .report-table td { border: 1px solid #000; padding: 5px 7px; text-align: left; }
-    .report-table th { background: #f2f2f2; font-weight: bold; }
-
-    .btn-print { background: #1e40af; color: white; padding: 8px 16px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; margin-bottom: 12px; }
+    .report-table th { background: #f1f5f9; font-weight: bold; }
 
     @media print {
-      body { background: white; color: black; padding: 0; }
-      header, .role-bar, nav, .card-form, .btn-print { display: none !important; }
-      .container { max-width: 100%; margin: 0; }
+      body { background: white; padding: 0; }
+      header, .role-card, nav, .card-form, .btn-print, .uploader-card { display: none !important; }
+      .container { max-width: 100%; }
       .report-sheet { padding: 0; border-radius: 0; }
     }
   </style>
@@ -76,189 +208,211 @@
 
   <div class="container">
     <header>
-      <h1>Sistem Pentaksiran MPU3421 Sepak Takraw</h1>
-      <p>Borang Penilaian Berperanti Bebas (GitHub Connected to GAS API)</p>
+      <h1><i class="fa-solid fa-volleyball"></i> MPU3421 Sepak Takraw</h1>
+      <p>Sistem Pentaksiran Berterusan Amali (60%) & Simulasi (40%)</p>
     </header>
 
-    <div class="role-bar card-form">
-      <label for="evaluatorRole">Peranan Penilai Pada Peranti Ini:</label>
+    <!-- BAHAGIAN PILIHAN PERANAN PERANTI -->
+    <div class="role-card card-form">
+      <label for="evaluatorRole"><i class="fa-solid fa-user-gear"></i> Peranan Penilai Peranti Ini:</label>
       <select id="evaluatorRole" onchange="updateRoleUI()">
         <option value="P1">Penilai 1 (P1)</option>
         <option value="P2">Penilai 2 (P2)</option>
       </select>
     </div>
 
-    <nav>
-      <button id="btn-tab-amali" class="active" onclick="switchTab('amali')">1. Senarai Semak Amali (60%)</button>
-      <button id="btn-tab-simulasi" onclick="switchTab('simulasi')">2. Simulasi Latihan (40%)</button>
-      <button id="btn-tab-laporan" onclick="switchTab('laporan')">3. Laporan Penuh Individu</button>
+    <nav class="card-form">
+      <button id="btn-tab-amali" class="active" onclick="switchTab('amali')"><i class="fa-solid fa-list-check"></i> 1. Amali (60%)</button>
+      <button id="btn-tab-simulasi" onclick="switchTab('simulasi')"><i class="fa-solid fa-chalkboard-user"></i> 2. Simulasi (40%)</button>
+      <button id="btn-tab-laporan" onclick="switchTab('laporan')"><i class="fa-solid fa-file-invoice"></i> 3. Laporan</button>
     </nav>
 
     <div id="notification"></div>
 
     <!-- MODUL 1: SENARAI SEMAK UJIAN AMALI -->
     <div id="sec-amali" class="card card-form">
-      <h2 style="margin-bottom: 12px; font-size: 1.1rem; color: var(--accent);">
-        Borang Senarai Semak Amali (<span class="txtRoleDisplay">Penilai 1</span>)
-      </h2>
-      
+      <div class="card-title">
+        <i class="fa-solid fa-clipboard-check" style="color: var(--accent);"></i>
+        Senarai Semak Amali Kemahiran (<span class="txtRoleDisplay">Penilai 1</span>)
+      </div>
+
       <div class="form-group">
-        <label>Pilih Pelajar (daripada 30 Senarai Pelajar)</label>
+        <label><i class="fa-solid fa-user-graduate"></i> Pilih Pelajar (30 Data Sampel)</label>
         <select id="selectPelajarAmali" required><option value="">-- Memuatkan... --</option></select>
       </div>
 
       <form id="formAmali" onsubmit="handleAmaliSubmit(event)">
-        <div class="checklist-block">
-          <h4>1. Kemahiran Servis (10 Markah)</h4>
-          <div class="phase-row">
-            <span><b>Sebelum:</b> Kaki sokongan & fokus mata</span>
+        
+        <!-- KEMAHIRAN 1: SERVIS (20 MARKAH MAX) -->
+        <div class="checklist-box">
+          <h4><i class="fa-solid fa-shoe-prints"></i> 1. Kemahiran Servis (Maksimum 20.0 Markah)</h4>
+          <div class="phase-item">
+            <span>Fasa Sebelum: Imbangan kaki & fokus mata</span>
             <select id="servis_sebelum" onchange="calculateChecklist()">
-              <option value="3.3">Cemerlang (3.3): Kaki stabil dalam bulatan; fokus mata tepat</option>
-              <option value="2.0">Sederhana (2.0): Kaki kekal dalam bulatan; mata lihat bola</option>
-              <option value="1.0">Lemah (1.0): Kaki keluar bulatan; mata tidak fokus</option>
+              <option value="6.6">Cemerlang (6.6M): Kaki stabil dlm bulatan; fokus tepat</option>
+              <option value="4.0">Sederhana (4.0M): Kaki dlm bulatan; mata pandang bola</option>
+              <option value="2.0">Lemah (2.0M): Kaki terangkat keluar; mata pasif</option>
             </select>
           </div>
-          <div class="phase-row">
-            <span><b>Semasa:</b> Sepak sila, berat badan & kontak</span>
+          <div class="phase-item">
+            <span>Fasa Semasa: Sepak sila & kontak tepat</span>
             <select id="servis_semasa" onchange="calculateChecklist()">
-              <option value="3.3">Cemerlang (3.3): Teknik tepat; pemindahan berat lancar; kontak tepat</option>
-              <option value="2.0">Sederhana (2.0): Teknik betul; kontak tepat tapi kelajuan tidak konsisten</option>
-              <option value="1.0">Lemah (1.0): Gagal teknik; imbangan tidak stabil & kontak tersasar</option>
+              <option value="6.7">Cemerlang (6.7M): Kontak padu; pemindahan berat badan lancar</option>
+              <option value="4.0">Sederhana (4.0M): Kontak betul; kelajuan bola tidak konsisten</option>
+              <option value="2.0">Lemah (2.0M): Gagal teknik; kontak tersasar</option>
             </select>
           </div>
-          <div class="phase-row">
-            <span><b>Selepas:</b> Ikut lajak & sedia seimbang</span>
+          <div class="phase-item">
+            <span>Fasa Selepas: Ikut lajak & kembali sedia</span>
             <select id="servis_selepas" onchange="calculateChecklist()">
-              <option value="3.4">Cemerlang (3.4): Ikut lajak lancar; serta-merta kembali sedia</option>
-              <option value="2.0">Sederhana (2.0): Ikut lajak asas; kembali ke posisi sedia</option>
-              <option value="1.0">Lemah (1.0): Tiada ikut lajak; hilang imbangan</option>
+              <option value="6.7">Cemerlang (6.7M): Ikut lajak lancar; sedia seimbang serta-merta</option>
+              <option value="4.0">Sederhana (4.0M): Ikut lajak asas; kembali sedia</option>
+              <option value="2.0">Lemah (2.0M): Tiada ikut lajak; hilang imbangan</option>
             </select>
           </div>
           <div class="form-group" style="margin-top:6px;">
-            <label>Cadangan vs Markah Akhir Servis (Boleh diubah kepada 1 titik perpuluhan, contoh: 5.7):</label>
-            <input type="number" id="servis_final" min="0" max="10" step="0.1" value="10.0">
+            <label>Markah Akhir Servis /20.0 (Boleh diubah):</label>
+            <input type="number" id="servis_final" min="0" max="20" step="0.1" value="20.0">
           </div>
         </div>
 
-        <div class="checklist-block">
-          <h4>2. Kemahiran Mengumpan (10 Markah)</h4>
-          <div class="phase-row">
-            <span><b>Sebelum:</b> Memandang bola & bukaan langkah</span>
+        <!-- KEMAHIRAN 2: MENGUMPAN (20 MARKAH MAX) -->
+        <div class="checklist-box">
+          <h4><i class="fa-solid fa-hand-holding-hand"></i> 2. Kemahiran Mengumpan (Maksimum 20.0 Markah)</h4>
+          <div class="phase-item">
+            <span>Fasa Sebelum: Pandang kedatangan bola & bukaan langkah</span>
             <select id="umpan_sebelum" onchange="calculateChecklist()">
-              <option value="3.3">Cemerlang (3.3): Arah bola tepat; imbangan amat kukuh</option>
-              <option value="2.0">Sederhana (2.0): Langkah selesa; mata pandang bola</option>
-              <option value="1.0">Lemah (1.0): Langkah tidak seimbang; mata tidak ikut bola</option>
+              <option value="6.6">Cemerlang (6.6M): Arah bola tepat; kedudukan amat kukuh</option>
+              <option value="4.0">Sederhana (4.0M): Langkah selesa; mata fokus bola</option>
+              <option value="2.0">Lemah (2.0M): Imbangan tidak seimbang; lambat bergerak</option>
             </select>
           </div>
-          <div class="phase-row">
-            <span><b>Semasa:</b> Sentuhan terkawal & bola tidak berputar</span>
+          <div class="phase-item">
+            <span>Fasa Semasa: Sentuhan terkawal & ketinggian umpanan</span>
             <select id="umpan_semasa" onchange="calculateChecklist()">
-              <option value="3.3">Cemerlang (3.3): Sentuhan lancar; bola tidak berputar ideal</option>
-              <option value="2.0">Sederhana (2.0): Umpanan tuju zon jaring; diimbang baik</option>
-              <option value="1.0">Lemah (1.0): Sentuhan tidak tepat; umpanan terlalu rendah/jauh</option>
+              <option value="6.7">Cemerlang (6.7M): Sentuhan lembut; bola tidak berputar ideal</option>
+              <option value="4.0">Sederhana (4.0M): Umpanan tuju zon jaring; diimbang baik</option>
+              <option value="2.0">Lemah (2.0M): Umpanan terlalu rendah/terlalu jauh</option>
             </select>
           </div>
-          <div class="phase-row">
-            <span><b>Selepas:</b> Ikut lajak kemas & kesediaan</span>
+          <div class="phase-item">
+            <span>Fasa Selepas: Kesediaan posisi pertahanan</span>
             <select id="umpan_selepas" onchange="calculateChecklist()">
-              <option value="3.4">Cemerlang (3.4): Ikut lajak kemas; sedia bertindak</option>
-              <option value="2.0">Sederhana (2.0): Ikut lajak asas; kembali sedia</option>
-              <option value="1.0">Lemah (1.0): Tiada ikut lajak; tidak sedia</option>
+              <option value="6.7">Cemerlang (6.7M): Ikut lajak kemas; sedia bertindak</option>
+              <option value="4.0">Sederhana (4.0M): Kembali ke posisi asas</option>
+              <option value="2.0">Lemah (2.0M): Pasif & tidak bersedia</option>
             </select>
           </div>
           <div class="form-group" style="margin-top:6px;">
-            <label>Cadangan vs Markah Akhir Mengumpan (Boleh diubah):</label>
-            <input type="number" id="umpan_final" min="0" max="10" step="0.1" value="10.0">
+            <label>Markah Akhir Mengumpan /20.0 (Boleh diubah):</label>
+            <input type="number" id="umpan_final" min="0" max="20" step="0.1" value="20.0">
           </div>
         </div>
 
-        <div class="checklist-block">
-          <h4>3. Kemahiran Menanduk (10 Markah)</h4>
-          <div class="phase-row">
-            <span><b>Sebelum:</b> Anggaran bola & postur fleksibel</span>
+        <!-- KEMAHIRAN 3: MENANDUK (20 MARKAH MAX) -->
+        <div class="checklist-box">
+          <h4><i class="fa-solid fa-person-dots-from-line"></i> 3. Kemahiran Menanduk (Maksimum 20.0 Markah)</h4>
+          <div class="phase-item">
+            <span>Fasa Sebelum: Anggaran aras bola & postur leher</span>
             <select id="tanduk_sebelum" onchange="calculateChecklist()">
-              <option value="3.3">Cemerlang (3.3): Ketinggian tepat; fleksibel sedia merejam</option>
-              <option value="2.0">Sederhana (2.0): Berdiri selesa; pandang kedatangan bola</option>
-              <option value="1.0">Lemah (1.0): Postur pasif; mata tidak pandang bola</option>
+              <option value="6.6">Cemerlang (6.6M): Ketinggian tepat; fleksibel sedia merejam</option>
+              <option value="4.0">Sederhana (4.0M): Berdiri selesa; pandang bola</option>
+              <option value="2.0">Lemah (2.0M): Postur kaku; menganggar bola salah</option>
             </select>
           </div>
-          <div class="phase-row">
-            <span><b>Semasa:</b> Kontak dahi & ayunan leher/dada</span>
+          <div class="phase-item">
+            <span>Fasa Semasa: Kontak dahi & kilasan dada</span>
             <select id="tanduk_semasa" onchange="calculateChecklist()">
-              <option value="3.3">Cemerlang (3.3): Kontak dahi tepat; ayunan pantas; kawalan baik</option>
-              <option value="2.0">Sederhana (2.0): Kontak dahi dengan kilasan leher/badan</option>
-              <option value="1.0">Lemah (1.0): Kontak bukan dahi (ubun/muka); tidak terkawal</option>
+              <option value="6.7">Cemerlang (6.7M): Kontak dahi tepat; kilasan pantas & tajam</option>
+              <option value="4.0">Sederhana (4.0M): Kontak dahi; kawalan arah sederhana</option>
+              <option value="2.0">Lemah (2.0M): Kontak ubun-ubun/muka; tidak terkawal</option>
             </select>
           </div>
-          <div class="phase-row">
-            <span><b>Selepas:</b> Pendaratan seimbang & selamat</span>
+          <div class="phase-item">
+            <span>Fasa Selepas: Pendaratan seimbang</span>
             <select id="tanduk_selepas" onchange="calculateChecklist()">
-              <option value="3.4">Cemerlang (3.4): Mendarat seimbang, selamat & sedia serta-merta</option>
-              <option value="2.0">Sederhana (2.0): Menyerap daya; kembali kedudukan sedia</option>
-              <option value="1.0">Lemah (1.0): Hilang imbangan semasa mendarat</option>
+              <option value="6.7">Cemerlang (6.7M): Mendarat seimbang, selamat & sedia</option>
+              <option value="4.0">Sederhana (4.0M): Menyerap daya; kembali sedia</option>
+              <option value="2.0">Lemah (2.0M): Hilang imbangan semasa mendarat</option>
             </select>
           </div>
           <div class="form-group" style="margin-top:6px;">
-            <label>Cadangan vs Markah Akhir Menanduk (Boleh diubah):</label>
-            <input type="number" id="tanduk_final" min="0" max="10" step="0.1" value="10.0">
+            <label>Markah Akhir Menanduk /20.0 (Boleh diubah):</label>
+            <input type="number" id="tanduk_final" min="0" max="20" step="0.1" value="20.0">
           </div>
         </div>
 
-        <div class="justification-box" id="justification_text">
-          Justifikasi: Cadangan Skor (30.0/30). Prestasi Cemerlang.
+        <div class="justification-card">
+          <i class="fa-solid fa-circle-info" style="font-size: 1.1rem;"></i>
+          <span id="justification_text">Justifikasi Automatik dijana di sini...</span>
         </div>
 
-        <button type="submit" class="btn-submit">Simpan Penilaian Amali (<span class="txtRoleDisplay">Penilai 1</span>)</button>
+        <button type="submit" class="btn-submit">
+          <i class="fa-solid fa-floppy-disk"></i> Simpan Penilaian Amali (<span class="txtRoleDisplay">Penilai 1</span>)
+        </button>
       </form>
     </div>
 
     <!-- MODUL 2: SIMULASI RANCANGAN LATIHAN -->
     <div id="sec-simulasi" class="card card-form hidden">
-      <h2 style="margin-bottom: 12px; font-size: 1.1rem; color: var(--accent);">
+      <div class="card-title">
+        <i class="fa-solid fa-sliders" style="color: var(--primary);"></i>
         Penilaian Simulasi Rancangan Latihan (<span class="txtRoleDisplay">Penilai 1</span>)
-      </h2>
-      
+      </div>
+
       <div class="form-group">
-        <label>Pilih Pelajar (daripada 30 Senarai Pelajar)</label>
+        <label><i class="fa-solid fa-user-graduate"></i> Pilih Pelajar</label>
         <select id="selectPelajarSimulasi" required><option value="">-- Memuatkan... --</option></select>
       </div>
 
       <form id="formSimulasi" onsubmit="handleSimulasiSubmit(event)">
         <div class="form-group">
-          <label>HPP2 Kognitif (0.0 - 20.0)</label>
+          <label>HPP2 Kognitif (Maksimum 20.0 Markah)</label>
           <input type="number" id="simHpp2" min="0" max="20" step="0.1" value="18.0" required>
         </div>
         <div class="form-group">
-          <label>HPP5 Komunikasi (0.0 - 20.0)</label>
+          <label>HPP5 Komunikasi (Maksimum 20.0 Markah)</label>
           <input type="number" id="simHpp5" min="0" max="20" step="0.1" value="18.0" required>
         </div>
         <div class="form-group">
           <label>Catatan Simulasi Latihan</label>
-          <textarea id="catatanSimulasi" rows="2" placeholder="Catatan..."></textarea>
+          <textarea id="catatanSimulasi" rows="2" placeholder="Catatan perlakuan simulasi..."></textarea>
         </div>
 
-        <button type="submit" class="btn-submit">Simpan Penilaian Simulasi (<span class="txtRoleDisplay">Penilai 1</span>)</button>
+        <button type="submit" class="btn-submit" style="background: var(--primary);">
+          <i class="fa-solid fa-floppy-disk"></i> Simpan Penilaian Simulasi (<span class="txtRoleDisplay">Penilai 1</span>)
+        </button>
       </form>
     </div>
 
     <!-- MODUL 3: LAPORAN PENUH INDIVIDU & CETAKAN -->
     <div id="sec-laporan" class="card hidden">
+      
+      <!-- MUAT NAIK LOGO IPG DARULAMAN -->
+      <div class="uploader-card card-form" style="background:#f1f5f9; padding:12px; border-radius:16px; margin-bottom:14px; box-shadow: var(--clay-input-shadow);">
+        <label><i class="fa-solid fa-image"></i> Muat Naik Logo IPG Kampus Darulaman (Untuk Pengepala Laporan):</label>
+        <input type="file" id="logoUploader" accept="image/*" onchange="previewLogo(event)">
+      </div>
+
       <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 14px;" class="card-form">
         <select id="selectPelajarLaporan" style="flex:1;"><option value="">-- Pilih Pelajar Untuk Penjanaan Laporan --</option></select>
-        <button onclick="janaLaporan()" style="background: var(--accent); color: white; border: none; padding: 8px 14px; border-radius: 6px; cursor: pointer; font-weight: bold;">Jana Laporan</button>
+        <button onclick="janaLaporan()" style="background: var(--accent); color: white; border: none; padding: 12px 16px; border-radius: 14px; cursor: pointer; font-weight: bold;">Jana Laporan</button>
       </div>
 
       <div id="reportContainer" class="hidden">
-        <button onclick="window.print()" class="btn-print">Cetak Laporan (PDF / Kertas)</button>
+        <button onclick="window.print()" class="btn-submit btn-print" style="background:#1e40af; margin-bottom:14px;">
+          <i class="fa-solid fa-print"></i> Cetak Laporan (PDF / Kertas)
+        </button>
 
         <div class="report-sheet">
           <div class="report-header">
-            <h2>INSTITUT PENDIDIKAN GURU KAMPUS DARULAMAN</h2>
-            <h3>BORANG PENILAIAN PENTAKSIRAN BERTERUSAN INDIVIDU</h3>
-            <h3>KURSUS: MPU3421 KOKURIKULUM - PERMAINAN (SEPAK TAKRAW)</h3>
+            <img id="imgLogoPreview" class="logo-img" src="" alt="Logo IPG" style="display:none; margin:0 auto 6px auto;">
+            <h2 style="font-size:1.1rem; text-transform:uppercase;">INSTITUT PENDIDIKAN GURU KAMPUS DARULAMAN</h2>
+            <h3 style="font-size:0.95rem; font-weight:normal;">BORANG PENILAIAN PENTAKSIRAN BERTERUSAN INDIVIDU</h3>
+            <h3 style="font-size:0.95rem; font-weight:bold;">KURSUS: MPU3421 KOKURIKULUM - PERMAINAN (SEPAK TAKRAW)</h3>
           </div>
 
-          <table style="width:100%; margin-bottom: 12px; font-size: 0.85rem;">
+          <table style="width:100%; margin-bottom: 10px; font-size: 0.85rem;">
             <tr><td style="width:20%; font-weight:bold;">Nama Pelajar:</td><td id="rptNama">-</td><td style="width:20%; font-weight:bold;">Kelas/Unit:</td><td id="rptUnit">-</td></tr>
             <tr><td style="font-weight:bold;">Angka Giliran:</td><td id="rptAG">-</td><td style="font-weight:bold;">No. KP:</td><td id="rptKP">-</td></tr>
           </table>
@@ -268,18 +422,18 @@
             <thead>
               <tr>
                 <th>Penilai</th>
-                <th>Servis (/10)</th>
-                <th>Mengumpan (/10)</th>
-                <th>Menanduk (/10)</th>
-                <th>Jumlah Skor (/30)</th>
-                <th>Justifikasi Ringkas</th>
+                <th>Servis (/20)</th>
+                <th>Mengumpan (/20)</th>
+                <th>Menanduk (/20)</th>
+                <th>Jumlah Amali (/60)</th>
+                <th>Justifikasi Ringkas Prestasi</th>
               </tr>
             </thead>
             <tbody>
               <tr><td>Penilai 1 (P1)</td><td id="rptP1S">-</td><td id="rptP1U">-</td><td id="rptP1T">-</td><td id="rptP1J">-</td><td id="rptP1Just" style="font-size:0.75rem;">-</td></tr>
               <tr><td>Penilai 2 (P2)</td><td id="rptP2S">-</td><td id="rptP2U">-</td><td id="rptP2T">-</td><td id="rptP2J">-</td><td id="rptP2Just" style="font-size:0.75rem;">-</td></tr>
-              <tr style="font-weight:bold; background:#f9f9f9;">
-                <td colspan="4">Purata Skor Amali (/30) & Wajaran (60%):</td>
+              <tr style="font-weight:bold; background:#f8fafc;">
+                <td colspan="4">Purata Markah Amali Keseluruhan (60% Wajaran):</td>
                 <td colspan="2" id="rptWajaran60">-</td>
               </tr>
             </tbody>
@@ -298,14 +452,14 @@
             <tbody>
               <tr><td>Penilai 1 (P1)</td><td id="rptP1H2">-</td><td id="rptP1H5">-</td><td id="rptP1SimJ">-</td></tr>
               <tr><td>Penilai 2 (P2)</td><td id="rptP2H2">-</td><td id="rptP2H5">-</td><td id="rptP2SimJ">-</td></tr>
-              <tr style="font-weight:bold; background:#f9f9f9;">
+              <tr style="font-weight:bold; background:#f8fafc;">
                 <td colspan="3">Purata Wajaran Simulasi (40%):</td>
                 <td id="rptWajaran40">-</td>
               </tr>
             </tbody>
           </table>
 
-          <div style="border: 2px solid #000; padding: 8px; margin-top: 10px; text-align: center; background: #f2f2f2;">
+          <div style="border: 2px solid #000; padding: 8px; margin-top: 10px; text-align: center; background: #f1f5f9;">
             <h3 style="font-size: 1rem; text-transform: uppercase;">MARKAH KESELURUHAN (100%): <span id="rptJumlah100">-</span></h3>
           </div>
 
@@ -326,7 +480,6 @@
   </div>
 
   <script>
-    // URL API GOOGLE APPS SCRIPT ANDA
     const API_URL = "https://script.google.com/macros/s/AKfycbxLFpYRZ6uplbfHYCIqq-0FdcWxUWfvt0rDaCPNdzVughBAFKUwn_E-h97tSFoPCaGmSg/exec";
 
     let rawPelajarList = [];
@@ -337,7 +490,16 @@
       updateRoleUI();
     });
 
-    // SAMBUNGAN FETCH KE API GOOGLE APPS SCRIPT
+    function previewLogo(event) {
+      const reader = new FileReader();
+      reader.onload = function() {
+        const img = document.getElementById('imgLogoPreview');
+        img.src = reader.result;
+        img.style.display = 'block';
+      };
+      if (event.target.files[0]) reader.readAsDataURL(event.target.files[0]);
+    }
+
     async function apiGet(action, params = {}) {
       const q = new URLSearchParams({ action, ...params }).toString();
       const res = await fetch(`${API_URL}?${q}`);
@@ -394,34 +556,50 @@
       document.getElementById('selectPelajarLaporan').innerHTML = opts;
     }
 
+    // PENGIRAAN AUTOMATIK SENARAI SEMAK (20M SERVIS, 20M UMPAN, 20M TANDUK = 60M TOTAL)
     function calculateChecklist() {
       const role = document.getElementById('evaluatorRole').value;
 
+      // Servis (/20.0)
       const s1 = parseFloat(document.getElementById('servis_sebelum').value);
       const s2 = parseFloat(document.getElementById('servis_semasa').value);
       const s3 = parseFloat(document.getElementById('servis_selepas').value);
-      const sTotal = Math.min(10, (s1 + s2 + s3)).toFixed(1);
+      const sTotal = Math.min(20, (s1 + s2 + s3)).toFixed(1);
       document.getElementById('servis_final').value = parseFloat(sTotal);
 
+      // Mengumpan (/20.0)
       const u1 = parseFloat(document.getElementById('umpan_sebelum').value);
       const u2 = parseFloat(document.getElementById('umpan_semasa').value);
       const u3 = parseFloat(document.getElementById('umpan_selepas').value);
-      const uTotal = Math.min(10, (u1 + u2 + u3)).toFixed(1);
+      const uTotal = Math.min(20, (u1 + u2 + u3)).toFixed(1);
       document.getElementById('umpan_final').value = parseFloat(uTotal);
 
+      // Menanduk (/20.0)
       const t1 = parseFloat(document.getElementById('tanduk_sebelum').value);
       const t2 = parseFloat(document.getElementById('tanduk_semasa').value);
       const t3 = parseFloat(document.getElementById('tanduk_selepas').value);
-      const tTotal = Math.min(10, (t1 + t2 + t3)).toFixed(1);
+      const tTotal = Math.min(20, (t1 + t2 + t3)).toFixed(1);
       document.getElementById('tanduk_final').value = parseFloat(tTotal);
 
       const grandTotal = (parseFloat(sTotal) + parseFloat(uTotal) + parseFloat(tTotal)).toFixed(1);
-      let statusText = "Cemerlang pada sebahagian besar fasa perlakuan.";
-      if (grandTotal < 18) statusText = "Memerlukan penambahbaikan pada kawalan fasa semasa & pendaratan.";
-      if (grandTotal < 12) statusText = "Penguasaan fasa perlakuan asas masih pada tahap lemah.";
+      
+      // PENJANAN JUSTIFIKASI AUTOMATIK BERDASARKAN SKOR & FASA
+      let detailServis = sTotal >= 18 ? "Cemerlang" : (sTotal >= 12 ? "Sederhana" : "Lemah");
+      let detailUmpan = uTotal >= 18 ? "Cemerlang" : (uTotal >= 12 ? "Sederhana" : "Lemah");
+      let detailTanduk = tTotal >= 18 ? "Cemerlang" : (tTotal >= 12 ? "Sederhana" : "Lemah");
 
-      document.getElementById('justification_text').innerText = 
-        `Justifikasi [${role}]: Cadangan Skor (${grandTotal}/30). ${statusText} (Markah boleh diselaraskan).`;
+      let autoJustification = `Justifikasi [${role}]: Jumlah Amali (${grandTotal}/60.0). ` +
+        `Servis: ${detailServis}, Umpanan: ${detailUmpan}, Menanduk: ${detailTanduk}. `;
+
+      if (grandTotal >= 50) {
+        autoJustification += "Menguasai kesemua fasa perlakuan (sebelum, semasa, selepas) secara teknikal & konsisten.";
+      } else if (grandTotal >= 35) {
+        autoJustification += "Memerlukan sedikit penambahbaikan pada kawalan fasa semasa & pendaratan seimbang.";
+      } else {
+        autoJustification += "Penguasaan fasa perlakuan asas masih pada tahap memuaskan & memerlukan latihan pengukuhan.";
+      }
+
+      document.getElementById('justification_text').innerText = autoJustification;
     }
 
     async function handleAmaliSubmit(e) {
@@ -495,16 +673,16 @@
         document.getElementById('rptP1S').innerText = data.amali.p1S;
         document.getElementById('rptP1U').innerText = data.amali.p1U;
         document.getElementById('rptP1T').innerText = data.amali.p1T;
-        document.getElementById('rptP1J').innerText = data.amali.p1J + ' / 30';
+        document.getElementById('rptP1J').innerText = data.amali.p1J + ' / 60';
         document.getElementById('rptP1Just').innerText = data.amali.p1Just || '-';
 
         document.getElementById('rptP2S').innerText = data.amali.p2S;
         document.getElementById('rptP2U').innerText = data.amali.p2U;
         document.getElementById('rptP2T').innerText = data.amali.p2T;
-        document.getElementById('rptP2J').innerText = data.amali.p2J + ' / 30';
+        document.getElementById('rptP2J').innerText = data.amali.p2J + ' / 60';
         document.getElementById('rptP2Just').innerText = data.amali.p2Just || '-';
 
-        document.getElementById('rptWajaran60').innerText = `${data.amali.purataSkor} / 30 (${data.amali.wajaran60}%)`;
+        document.getElementById('rptWajaran60').innerText = `${data.amali.wajaran60} %`;
       } else {
         document.getElementById('rptWajaran60').innerText = 'Belum Dinilai';
       }
